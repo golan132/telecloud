@@ -1,6 +1,6 @@
 {
   "name": "@telecloud/source",
-  "version": "0.0.0",
+  "version": "1.0.0",
   "license": "MIT",
   "scripts": {
     "start:client": "nx serve telecloud-client --port=3000",
