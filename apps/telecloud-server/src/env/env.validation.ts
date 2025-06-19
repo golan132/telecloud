@@ -17,6 +17,9 @@ export class EnvVars {
 
   @IsString()
   CHAT_IDS!: string;
+
+  @IsString()
+  DEFAULT_DRIVE_PATH!: string;
 }
 
 export const validate = (config: Record<string, unknown>): EnvVars => {

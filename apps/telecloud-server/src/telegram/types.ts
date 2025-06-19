@@ -5,10 +5,10 @@ export type UploadedFileMetadata = {
   channelId: string | number;
 };
 
-export type UploadResult ={
+export type UploadResult = {
   file_id: string;
   channelId: string | number;
-}
+};
 
 export type UploadStats = {
   startTime: number;
@@ -16,4 +16,4 @@ export type UploadStats = {
   uploadedFiles: number;
   lastReportTime: number;
   filesUploadedSinceLastReport: number;
-}
+};

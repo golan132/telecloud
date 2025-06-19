@@ -3,14 +3,7 @@
 A modern fullstack monorepo built with NX, TypeScript, and GitHub Actions.
 This project enables you to use Telegram channels as a cloud storage solution — free, scalable, and easy to use.
 
-## 🌟 Features
-
-- ✉️ Automatically extract chat IDs from forwarded messages
-- ♻️ Parallel media uploads to multiple storage channels
-- ⇪ Auto-upload files from PC to storage channels
-- 🔄 Restore media from channels back to your local machine
-
-
+---
 
 ## ⚙️ Setup
 
@@ -31,7 +24,7 @@ This project enables you to use Telegram channels as a cloud storage solution �
 
    Tip: Forward a message from a channel to a bot to get the channel's chat ID.
 
-4. Add your user chat IDs (the bots will communicate with these users):
+4. Add your user chat IDs (the bots will communicate with these users), run the program, try sending massage to the bot and then you can see the chatId:
 
    ```env
    CHAT_IDS=1234,12345
@@ -49,6 +42,12 @@ This project enables you to use Telegram channels as a cloud storage solution �
    ADMIN_CHAT_ID=1234
    ```
 
+7. Set the local folder path for uploading files:
+
+   ```env
+   DEFAULT_DRIVE_PATH=C:\Path\To\Folder
+   ```
+
 ### ⚡ Installation & Running
 
 ```bash
@@ -62,6 +61,24 @@ npm install
 # Run all apps
 npx nx run-many --target=serve --all
 ```
+
+---
+
+## 🌟 Features
+
+- ✉️ Automatically extract chat IDs from forwarded messages
+- ♻️ Parallel media uploads to multiple storage channels
+- ⇪ Auto-upload files from PC to storage channels
+- 🔄 Restore media from channels back to your local machine
+
+---
+
+## 📘 How to Use
+
+Once the program is running, simply start chatting with one of your bots on Telegram.
+
+- You’ll see a list of available options in the chat.
+- Use the **Help** button to get detailed instructions inside Telegram.
 
 ---
 
@@ -82,5 +99,3 @@ npx nx run-many --target=serve --all
 - [x] File handling module
 - [ ] Improve generic path handling in `getFileInfo`
 - [ ] Add file encryption & decryption
-
----

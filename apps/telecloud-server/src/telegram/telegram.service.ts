@@ -6,8 +6,6 @@ import { TelegramConversationService } from '../telegram-conversation/telegram-c
 import { FileService } from '../file/file.service';
 import {
   PROGRESS_REPORT_INTERVAL_MS,
-  DEFAULT_DRIVE_PATH,
-  DEFAULT_RETRY_AFTER_SECONDS,
   MAX_RETRY_ATTEMPTS,
   NETWORK_RETRY_DELAY_MS,
 } from './constants';
@@ -98,18 +96,25 @@ export class TelegramService {
     const elapsedTimeMinutes = elapsedTimeMs / (1000 * 60);
 
     const filesSinceLastReport = this.uploadStats.filesUploadedSinceLastReport;
-    const uploadRate = filesSinceLastReport / (PROGRESS_REPORT_INTERVAL_MS / (1000 * 60));
+    const uploadRate =
+      filesSinceLastReport / (PROGRESS_REPORT_INTERVAL_MS / (1000 * 60));
 
-    const remainingFiles = this.uploadStats.totalFiles - this.uploadStats.uploadedFiles;
+    const remainingFiles =
+      this.uploadStats.totalFiles - this.uploadStats.uploadedFiles;
     const estimatedRemainingTime = remainingFiles / uploadRate;
-    const progressPercent = (this.uploadStats.uploadedFiles / this.uploadStats.totalFiles) * 100;
+    const progressPercent =
+      (this.uploadStats.uploadedFiles / this.uploadStats.totalFiles) * 100;
 
     const message = [
       `Upload Progress Report:`,
-      `✅ Uploaded: ${this.uploadStats.uploadedFiles} of ${this.uploadStats.totalFiles} (${progressPercent.toFixed(1)}%)`,
+      `✅ Uploaded: ${this.uploadStats.uploadedFiles} of ${
+        this.uploadStats.totalFiles
+      } (${progressPercent.toFixed(1)}%)`,
       `⏱️ Elapsed: ${elapsedTimeMinutes.toFixed(1)} minutes`,
       `📈 Rate: ${uploadRate.toFixed(1)} files/minute`,
-      `⏳ Estimated time remaining: ${estimatedRemainingTime.toFixed(1)} minutes`,
+      `⏳ Estimated time remaining: ${estimatedRemainingTime.toFixed(
+        1
+      )} minutes`,
     ].join('\n');
 
     try {
@@ -126,7 +131,8 @@ export class TelegramService {
     try {
       const totalElapsedTimeMs = Date.now() - this.uploadStats.startTime;
       const totalElapsedTimeMinutes = totalElapsedTimeMs / (1000 * 60);
-      const averageUploadRate = this.uploadStats.uploadedFiles / totalElapsedTimeMinutes;
+      const averageUploadRate =
+        this.uploadStats.uploadedFiles / totalElapsedTimeMinutes;
 
       const finalReportMessage = [
         '🏁 Upload Complete!',
@@ -410,15 +416,11 @@ export class TelegramService {
         if (this.isRateLimitError(error)) {
           const waitTime =
             error.response?.parameters?.retry_after || backoff(attempt);
-          console.warn(
-            `⏳ Rate limit exceeded. Waiting ${waitTime}ms...`
-          );
+          console.warn(`⏳ Rate limit exceeded. Waiting ${waitTime}ms...`);
           await new Promise((resolve) => setTimeout(resolve, waitTime));
         } else if (this.isNetworkError(error)) {
           console.warn('🌐 Network issue. Retrying in 10 seconds...');
-          await new Promise((resolve) =>
-            setTimeout(resolve, backoff(attempt))
-          );
+          await new Promise((resolve) => setTimeout(resolve, backoff(attempt)));
         } else {
           console.error(`❌ Failed to send ${filePath}:`, error.message);
           throw error;
@@ -458,7 +460,7 @@ export class TelegramService {
   }
 
   async scanAndUploadImagesFromDrive(
-    drivePath: string = DEFAULT_DRIVE_PATH,
+    drivePath: string = this.envService.get('DEFAULT_DRIVE_PATH'),
     maxConcurrency: number = this.bots.length * 2
   ): Promise<void> {
     const files = this.fileService.getUnuploadedFiles(drivePath);

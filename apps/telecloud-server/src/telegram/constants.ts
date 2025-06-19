@@ -1,6 +1,6 @@
 export const imageExtensions: string[] = [
   'jpg',
-  'jpeg',   
+  'jpeg',
   'png',
   'gif',
   'bmp',
@@ -8,7 +8,5 @@ export const imageExtensions: string[] = [
 ];
 
 export const PROGRESS_REPORT_INTERVAL_MS = 10 * 60 * 1000; // 10 minutes
-export const DEFAULT_RETRY_AFTER_SECONDS = 30;
 export const NETWORK_RETRY_DELAY_MS = 10 * 1000; // 10 seconds
 export const MAX_RETRY_ATTEMPTS = 5;
-export const DEFAULT_DRIVE_PATH = 'F:\\';
